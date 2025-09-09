@@ -4,4 +4,10 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "fastapi[standard]>=0.116.1",
+    "kafka-python>=2.2.15",
+    "minio>=7.2.16",
+    "psycopg2-binary>=2.9.10",
+    "requests>=2.32.5",
+]
