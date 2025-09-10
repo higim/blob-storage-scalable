@@ -54,8 +54,6 @@ services:
       - MINIO_NOTIFY_KAFKA_ENABLE_PRIMARY=on
       - MINIO_NOTIFY_KAFKA_BROKERS_PRIMARY=kafka:9092
       - MINIO_NOTIFY_KAFKA_TOPIC_PRIMARY=new_file
-      # Allow connecting outside docker network
-      - MINIO_SERVER_URL=http://localhost:9000
     ports:
       - "9000:9000"
       - "9001:9001"
@@ -85,24 +83,6 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
-  
-  # celery-worker:
-  #   build: ./backend
-  #   container_name: celery-worker
-  #   command: celery -A app.celery_app worker --loglevel=info
-  #   depends_on:
-  #     - backend
-  #     - redis
-  #     - db
-  
-  # celery-beat:
-  #   build: ./backend
-  #   container_name: celery-beat
-  #   command: celery -A app.celery_app beat --loglevel=info
-  #   depends_on:
-  #     - backend
-  #     - redis
-      # - db
 
 volumes:
   db_data:
