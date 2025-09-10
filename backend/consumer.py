@@ -1,8 +1,11 @@
 import os
 import json
 import threading
+import time
 
-from kafka import KafkaConsumer
+from kafka import KafkaConsumer, errors
+
+from db import update_file_status
 
 KAFKA_BROKER = os.getenv("KAFKA_BROKER")
 KAFKA_GROUP_ID = "blob-events-group"
@@ -35,6 +38,7 @@ def consume_events():
             for record in event.get("Records", []):
                 filename = record["s3"]["object"]["key"]
                 print(f"📥 Event received for: {filename}")
+                update_file_status(filename, "uploaded")
 
     except KeyboardInterrupt:
         print("⏹️ Kafka consumer stopped")

@@ -7,7 +7,7 @@ services:
       - backend
       - minio
     environment:
-      - BACKEND_URL=http://backend:8000
+      - BACKEND_URL=http://localhost:8000
 
   backend:
     build: ./backend
@@ -21,6 +21,7 @@ services:
       - MINIO_SECRET_KEY=minio123
       - KAFKA_BROKER=kafka:9092
       - REDIS_URL=redis://redis:6379/0
+      - MINIO_BUCKET_NAME=music-bucket
     depends_on:
       - db
       - minio
@@ -50,10 +51,11 @@ services:
       - MINIO_ROOT_USER=minio
       - MINIO_ROOT_PASSWORD=minio123
       # Kafka notification settings
-      - MINIO_NOTIFY_KAFKA_ENABLE=true
-      - MINIO_NOTIFY_KAFKA_BROKERS=kafka:9092
-      - MINIO_NOTIFY_KAFKA_TOPIC=new_file
-      - MINIO_NOTIFY_KAFKA_TLS_SKIP_VERIFY=true
+      - MINIO_NOTIFY_KAFKA_ENABLE_PRIMARY=on
+      - MINIO_NOTIFY_KAFKA_BROKERS_PRIMARY=kafka:9092
+      - MINIO_NOTIFY_KAFKA_TOPIC_PRIMARY=new_file
+      # Allow connecting outside docker network
+      - MINIO_SERVER_URL=http://localhost:9000
     ports:
       - "9000:9000"
       - "9001:9001"
@@ -70,7 +72,7 @@ services:
     - KAFKA_NODE_ID=1
     - KAFKA_CONTROLLER_QUORUM_VOTERS=1@kafka:29093
     - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:29093
-    - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092,CONTROLLER://kafka:29093
+    - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,CONTROLLER://kafka:29093 #
     - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
     - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
     - KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER
