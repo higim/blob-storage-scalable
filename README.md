@@ -1,6 +1,6 @@
 ### Music Streaming File Upload POC
 
-This repository contains a working proof-of-concept demonstrating the large-file upload pattern explained in this blog post:
+This repository contains a working proof-of-concept demonstrating the large-file upload pattern explained in [this blog post](https://higim.github.io/2025/09/12/Handling-Huge-File-Uploads-for-a-Music-Streaming-Platform.html):
 
 - FastAPI – metadata API and pre-signed URLs
 - MinIO – S3-compatible object storage
