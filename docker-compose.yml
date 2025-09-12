@@ -72,16 +72,16 @@ services:
     volumes:
       - minio_data:/data
 
-  # minio-init:
-  #   image: minio/mc
-  #   depends_on:
-  #     - minio
-  #   entrypoint: >
-  #     sh -c "
-  #       until mc alias set localminio http://minio:9000 minio minio123; do sleep 2; done &&
-  #       mc mb -p localminio/files || true &&
-  #       until mc event add localminio/files arn:minio:sqs::PRIMARY:kafka --event put; do sleep 2; done
-      # "
+  minio-init:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      sh -c "
+        until mc alias set localminio http://minio:9000 minio minio123; do sleep 2; done &&
+        mc mb -p localminio/music-bucket || true &&
+        until mc event add localminio/music-bucket arn:minio:sqs::PRIMARY:kafka --event put; do sleep 2; done
+      "
 
   kafka:
     image: apache/kafka:latest
