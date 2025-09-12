@@ -2,8 +2,7 @@ import requests
 import sys
 import os
 
-# API_URL = os.getenv("BACKEND_URL")
-API_URL = "http://localhost:8000"
+API_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
 
 def upload_file(filepath: str):
     filename = os.path.basename(filepath)

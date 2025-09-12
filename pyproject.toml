@@ -9,5 +9,6 @@ dependencies = [
     "kafka-python>=2.2.15",
     "minio>=7.2.16",
     "psycopg2-binary>=2.9.10",
+    "python-vlc>=3.0.21203",
     "requests>=2.32.5",
 ]

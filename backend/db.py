@@ -22,11 +22,3 @@ def save_file_metadata(filename: str, status: str = "pending"):
     conn.commit()
     cur.close()
     conn.close()
-
-def update_file_status(filename: str, status: str):
-    conn = get_connection()
-    cur = conn.cursor()
-    cur.execute("UPDATE files SET status=%s WHERE filename=%s", (status, filename))
-    conn.commit()
-    cur.close()
-    conn.close()
