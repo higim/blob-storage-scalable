@@ -34,7 +34,7 @@ There is a known, hard to solve problem to make MinIO accessible from your host 
 
 I had some problems with the auto-configuration of MinIO with the init container, sometimes the variable enabling the kafka notification seems to not work, so you might have to do it manually. Install mc or use a minio/mc docker image.
 
-`
+```
 mc alias set local http://minio:9000 minio minio123
 
 mc mb -p local/files || true
@@ -42,7 +42,7 @@ mc mb -p local/files || true
 mc admin config set localminio notify_kafka:PRIMARY enable=true
 
 mc event add local/files arn:minio:sqs::MINIO: --event put
-`
+``
 
 ### Notes
 
