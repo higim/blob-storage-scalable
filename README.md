@@ -42,10 +42,12 @@ mc mb -p local/files || true
 mc admin config set localminio notify_kafka:PRIMARY enable=true
 
 mc event add local/files arn:minio:sqs::MINIO: --event put
-``
+```
+
 
 ### Notes
 
 - Abandoned uploads: The consumer updates the DB only after the file lands in MinIO. For expired or abandoned uploads, consider TTLs or background cleanup jobs.
 - POC only: No OOP or clean-code patterns are used here; the focus is demonstrating the architecture.
 - Scaling considerations: In production, replace MinIO with S3 (or equivalent), add persistent Kafka storage, and implement retries/error handling for the consumer.
+- 
