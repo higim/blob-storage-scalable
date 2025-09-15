@@ -36,8 +36,11 @@ I had some problems with the auto-configuration of MinIO with the init container
 
 `
 mc alias set local http://minio:9000 minio minio123
+
 mc mb -p local/files || true
+
 mc admin config set localminio notify_kafka:PRIMARY enable=true
+
 mc event add local/files arn:minio:sqs::MINIO: --event put
 `
 
